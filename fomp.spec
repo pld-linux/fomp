@@ -1,12 +1,12 @@
 Summary:	LV2 port of the MCP, VCO, FIL, and WAH plugins
 Summary(pl.UTF-8):	Port LV2 wtyczek MCP, VCO, FIL i WAH
 Name:		fomp
-Version:	1.0.0
+Version:	1.2.0
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	0bb3d8331326d2c3485a9c538436cb56
+# Source0-md5:	5f9c52c5b954ddf37c7af7f31adcc0ff
 URL:		http://drobilla.net/software/fomp/
 BuildRequires:	libstdc++-devel
 BuildRequires:	lv2-devel >= 1.0.0
@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS README.md
 %dir %{_libdir}/lv2/fomp.lv2
 %attr(755,root,root) %{_libdir}/lv2/fomp.lv2/*.so
 %{_libdir}/lv2/fomp.lv2/*.ttl
