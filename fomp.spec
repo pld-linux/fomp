@@ -1,17 +1,21 @@
 Summary:	LV2 port of the MCP, VCO, FIL, and WAH plugins
 Summary(pl.UTF-8):	Port LV2 wtyczek MCP, VCO, FIL i WAH
 Name:		fomp
-Version:	1.2.2
+Version:	1.2.4
 Release:	1
 License:	GPL v2+
 Group:		Libraries
-Source0:	http://download.drobilla.net/%{name}-%{version}.tar.bz2
-# Source0-md5:	dd7812fd5bfbc564e4d0fb20c6146a81
+Source0:	http://download.drobilla.net/%{name}-%{version}.tar.xz
+# Source0-md5:	15d51621e0811bab8cdad0f811e8fcf3
 URL:		http://drobilla.net/software/fomp/
 BuildRequires:	libstdc++-devel >= 6:4.7
+BuildRequires:	meson >= 0.56.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	lv2-devel >= 1.16.0
 BuildRequires:	pkgconfig
-BuildRequires:	python >= 2
+BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	lv2 >= 1.16.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -33,19 +37,14 @@ generatory.
 %setup -q
 
 %build
-CC="%{__cc}" \
-CFLAGS="%{rpmcflags}" \
-./waf configure \
-	--prefix=%{_prefix} \
-	--libdir=%{_libdir}
+%meson build
 
-./waf -v
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-./waf install \
-	--destdir=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 %clean
 rm -rf $RPM_BUILD_ROOT
